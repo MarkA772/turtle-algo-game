@@ -1,10 +1,16 @@
 import React from 'react';
+import Canvas from './Canvas.jsx';
+import '../css/App.css';
 
 
 class App extends React.Component {
 
   render() {
-    return <div>Hello from App.jsx!</div>
+    return (
+    <><h1>Hello from App.jsx!</h1>
+      <Canvas />
+    </>
+    );
   }
 }
 
