@@ -9,7 +9,7 @@ class Canvas extends React.Component {
 
   componentDidMount() {
     this.canvas = this.canvasRef.current;
-    console.log(this.canvasRef);
+    this.turtleApp = Turtle(this.canvasRef);
   }
 
   render() {
@@ -40,10 +40,17 @@ class Canvas extends React.Component {
  *   to call this funcionality in many different ways and different orders.
  */
 class Turtle {
-  constructor() {
-    this.posx = 0;
-    this.posy = 0;
+  constructor(canvas) {
     this.orientation = 0; // degrees orientation, 0 is upwards
+    this.canvas = canvas;
+    this.context = canvas.getContext('2d');
+    this.posx = canvas.width / 2;
+    this.posy = canvas.height / 2;
+    this.drawTurtle();
+  }
+
+  drawTurtle() {
+    
   }
 }
 
