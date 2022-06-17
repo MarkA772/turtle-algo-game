@@ -1,10 +1,10 @@
 const express = require('express');
 
-const turtlesController = require('../controllers/turtlesController');
+const dbController = require('../controllers/dbController');
 
 const router = express.Router();
 
-router.get('/', turtlesController.testRoute, (req, res) => {
+router.get('/', dbController.testRoute, (req, res) => {
   console.log(res.locals);
   return res.status(200).send('test');
 });

@@ -2,9 +2,9 @@ const { Pool } = require('pg');
 
 const pool = new Pool();
 
-const turtlesController = {};
+const dbController = {};
 
-turtlesController.testRoute = (req, res, next) => {
+dbController.testRoute = (req, res, next) => {
   pool.query('SELECT * FROM algos')
     .then((data) => {
       res.locals = data.rows;
@@ -15,4 +15,4 @@ turtlesController.testRoute = (req, res, next) => {
     });
 };
 
-module.exports = turtlesController;
+module.exports = dbController;
