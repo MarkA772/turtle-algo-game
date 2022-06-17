@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server/server.js",
+    "start": "nodemon server/server.js",
     "build": "webpack",
-    "dev": "webpack serve"
+    "dev": "concurrently \"webpack serve\" \"nodemon server/server.js\""
   },
   "author": "Mark Alexander",
   "license": "ISC",
@@ -22,8 +22,11 @@
     "@babel/preset-env": "^7.18.2",
     "@babel/preset-react": "^7.17.12",
     "babel-loader": "^8.2.5",
+    "concurrently": "^7.2.2",
     "css-loader": "^6.7.1",
+    "dotenv": "^16.0.1",
     "html-webpack-plugin": "^5.5.0",
+    "nodemon": "^2.0.16",
     "style-loader": "^3.3.1",
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.9.2"
