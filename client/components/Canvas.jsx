@@ -9,7 +9,7 @@ class Canvas extends React.Component {
 
   componentDidMount() {
     this.canvas = this.canvasRef.current;
-    this.turtleApp = Turtle(this.canvasRef);
+    this.turtleApp = new Turtle(this.canvas);
   }
 
   render() {
