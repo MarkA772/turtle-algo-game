@@ -1,11 +1,18 @@
 import React from 'react';
 import TurtleInput from './TurtleInput.jsx';
 
+import Turtle from '../utils/Turtle.js';
+import TurtleParser from '../utils/TurtleParser.js';
+
 class Canvas extends React.Component {
   constructor(props) {
     super(props);
     this.canvasRef = React.createRef(null);
     this.turtleCanvasRef = React.createRef(null);
+    this.state = {
+      inputText: '',
+    }
+    this.handleInput = this.handleInput.bind(this);
   }
 
   componentDidMount() {
@@ -18,159 +25,25 @@ class Canvas extends React.Component {
     return (<div className="canvas-div">
       <canvas height="600" width="800" ref={this.turtleCanvasRef} className="turtle-canvas"/>
       <canvas height="600" width="800" ref={this.canvasRef} className="canvas"/>
-      <TurtleInput />
+      <TurtleInput
+        onInput={this.handleInput}
+        onSubmit={this.handleSubmit}
+        onSave={this.handleSave}
+      />
     </div>);
   }
-}
 
-/**
- * Turtle class to encapsulate turtle drawing logic. Canvas component should
- *   create this class and pass in the canvas context for it to work with.
- * 
- * Canvas component will send events to the Turtle instance from react.
- * Canvas component does not need to know what the turtle is doing, as it
- *   will be drawing directly to the canvas and won't need react to be updated.
- * 
- * Turtle should draw slowly, so user can see the turtle as it draws the lines
- *   and patterns.
- * 
- * To start with, we need functions for turning left/right at an angle, moving
- *   forward x pixels, and back x pixels, and drawing a line.
- * 
- * We also need capability to call those functions in loops.
- * We also need to keep in mind that when we parse these commands it will have
- *   the loop count and the function names inside them with their own args.
- * So this can be complicated if not set up properly. We need a flexible way
- *   to call this funcionality in many different ways and different orders.
- */
-class Turtle {
-  constructor(canvas, turtleCanvas) {
-    this.orientation = 0; // degrees orientation, 0 is upwards
-    this.canvas = canvas;
-    this.context = canvas.getContext('2d');
-    this.turtleCanvas = turtleCanvas;
-    this.turtleContext = turtleCanvas.getContext('2d');
-    this.posx = canvas.width / 2;
-    this.posy = canvas.height / 2;
-    this.drawTurtle();
+  handleSave() {
+    console.log('handleSave');
   }
 
-  drawTurtle() {
-    const ctx = this.turtleContext;
-    ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    ctx.strokeStyle = 'rgba(0, 0, 0, 0.5)';
-    const h = 12;
-    let [ x, y ] = this.angleToCoord(h);
-    ctx.beginPath();
-    ctx.moveTo(x, y);
-    [ x, y ] = this.angleToCoord(h / 2 - 1, this.orientation - 90);
-    ctx.lineTo(x, y);
-    [ x, y ] = this.angleToCoord(h / 2 - 1, this.orientation + 90);
-    ctx.lineTo(x, y);
-    ctx.closePath();
-    ctx.stroke();
+  handleSubmit() {
+    console.log('handleSubmit');
   }
 
-  clear() {
-    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-  }
-
-  drawLineF(dist) {
-    const ctx = this.context;
-    ctx.beginPath();
-    const [ x, y ] = this.angleToCoord(dist);
-    ctx.moveTo(this.posx, this.posy);
-    ctx.lineTo(x, y);
-    ctx.stroke();
-    this.posx = x;
-    this.posy = y;
-    this.drawTurtle();
-  }
-
-  drawLineB(dist) {
-    const ctx = this.context;
-    ctx.beginPath();
-    const [ x, y ] = this.angleToCoord(-dist);
-    ctx.moveTo(this.posx, this.posy);
-    ctx.lineTo(x, y);
-    ctx.stroke();
-    this.posx = x;
-    this.posy = y;
-    this.drawTurtle();
-  }
-
-  turnRt(deg) {
-    this.orientation += deg;
-    this.drawTurtle();
-  }
-  
-  turnLt(deg) {
-    this.orientation -= deg;
-    this.drawTurtle();
-  }
-
-  /**
-   * Loop using the dispatcher
-   * 
-   * @param {int} count Times to loop
-   * @param {array} cmds Array of commands
-   * @param {array} args Array of arguments for commands of same index
-   */
-  async loop(count, cmds, args) {
-    // Thanks to https://stackoverflow.com/questions/60566546/is-it-safe-to-promisify-requestanimationframe
-    function raf() {
-      return new Promise(resolve => {
-        requestAnimationFrame(resolve);
-      })
-    }
-    let actions = 0;
-
-    for (let i = 0; i < count; i++) {
-      for (let j = 0; j < cmds.length; j++) {
-        if (++actions % 9999 == 0) await raf();
-        this.dispatch(cmds[j], args[j]);
-      }
-    }
-  }
-
-  dispatch(evt, args) {
-    switch (evt) {
-      case 'fd':
-        this.drawLineF(args);
-        break;
-
-      case 'bk':
-        this.drawLineB(args);
-        break;
-      
-      case 'clr':
-        this.clear();
-        break;
-
-      case 'rt':
-        this.turnRt(args);
-        break;
-      
-      case 'lt':
-        this.turnLt(args);
-        break;
-      
-      case 'lp':
-        this.loop(...args);
-        break;
-    
-      default:
-        break;
-    }
-  }
-
-  angleToCoord(distance, angle=this.orientation, originX=this.posx, originY=this.posy) {
-    angle = angle - 90;
-    const x = originX + distance * Math.cos(Math.PI * angle / 180.0);
-    const y = originY + distance * Math.sin(Math.PI * angle / 180.0);
-    return [x, y];
+  handleInput(e) {
+    this.setState({inputText: e.target.value});
   }
 }
-
 
 export default Canvas;
