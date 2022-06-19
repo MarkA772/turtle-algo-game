@@ -12,7 +12,6 @@ class Canvas extends React.Component {
     this.canvas = this.canvasRef.current;
     this.turtleCanvas = this.turtleCanvasRef.current;
     this.turtleApp = new Turtle(this.canvas, this.turtleCanvas);
-    this.turtleApp.loop(100000, ['fd', 'rt'], [100, 144]);
   }
 
   render() {
@@ -78,7 +77,7 @@ class Turtle {
   drawLineF(dist) {
     const ctx = this.context;
     ctx.beginPath();
-    const [ x, y ] = this.angleToCoord(dist / 2 - 1, this.orientation, this.posx, this.posy);
+    const [ x, y ] = this.angleToCoord(dist);
     ctx.moveTo(this.posx, this.posy);
     ctx.lineTo(x, y);
     ctx.stroke();
@@ -90,7 +89,7 @@ class Turtle {
   drawLineB(dist) {
     const ctx = this.context;
     ctx.beginPath();
-    const [ x, y ] = this.angleToCoord(-dist / 2 - 1, this.orientation, this.posx, this.posy);
+    const [ x, y ] = this.angleToCoord(-dist);
     ctx.moveTo(this.posx, this.posy);
     ctx.lineTo(x, y);
     ctx.stroke();
@@ -116,32 +115,25 @@ class Turtle {
    * @param {array} cmds Array of commands
    * @param {array} args Array of arguments for commands of same index
    */
-  loop(count, cmds, args) {
-    let i = 0,
-      j = 0,
-      delta = Date.now();
+  async loop(count, cmds, args) {
+    // Thanks to https://stackoverflow.com/questions/60566546/is-it-safe-to-promisify-requestanimationframe
+    function raf() {
+      return new Promise(resolve => {
+        requestAnimationFrame(resolve);
+      })
+    }
+    let actions = 0;
 
-    const animationLoop = () => {
-      if (i >= count) return;
-      if (j >= cmds.length) {
-        i++;
-        j = 0;
-      } else {
+    for (let i = 0; i < count; i++) {
+      for (let j = 0; j < cmds.length; j++) {
+        if (++actions % 9999 == 0) await raf();
         this.dispatch(cmds[j], args[j]);
-        j++;
-      }
-      if (Date.now() - delta > 50) {
-        delta = Date.now();
-        requestAnimationFrame(animationLoop);
-      } else {
-        animationLoop();
       }
     }
-    requestAnimationFrame(animationLoop);
   }
 
-  async dispatch(event, args) {
-    switch (event) {
+  dispatch(evt, args) {
+    switch (evt) {
       case 'fd':
         this.drawLineF(args);
         break;
@@ -160,6 +152,10 @@ class Turtle {
       
       case 'lt':
         this.turnLt(args);
+        break;
+      
+      case 'lp':
+        this.loop(...args);
         break;
     
       default:
