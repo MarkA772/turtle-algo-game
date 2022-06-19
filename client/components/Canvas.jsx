@@ -1,5 +1,5 @@
 import React from 'react';
-
+import TurtleInput from './TurtleInput.jsx';
 
 class Canvas extends React.Component {
   constructor(props) {
@@ -18,6 +18,7 @@ class Canvas extends React.Component {
     return (<div className="canvas-div">
       <canvas height="600" width="800" ref={this.turtleCanvasRef} className="turtle-canvas"/>
       <canvas height="600" width="800" ref={this.canvasRef} className="canvas"/>
+      <TurtleInput />
     </div>);
   }
 }

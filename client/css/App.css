@@ -17,3 +17,26 @@ body {
 .turtle-canvas {
   position: absolute;
 }
+
+.input-div {
+  display: flex;
+}
+
+.turtle-input {
+  width: 730px;
+  height: 80px;
+  resize: none;
+}
+
+button {
+  width: 70px;
+  text-align: center;
+}
+
+.turtle-submit {
+  height: 50px;
+}
+
+.turtle-save {
+  height: 30px;
+}
