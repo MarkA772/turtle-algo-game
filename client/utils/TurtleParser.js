@@ -31,7 +31,7 @@ function parseCommands(commandArray) {
   const commands = [];
   const args = [];
   while (commandArray.length > 0) {
-    const currentCommand = commandArray.shift();
+    const currentCommand = commandArray.shift().toLowerCase();
     switch (currentCommand) {
       case 'left':
       case 'lt':
@@ -82,7 +82,7 @@ function splitCommands(str) {
   let i = 0;
   while (i < str.length) {
     const c = str[i];
-    if (c === ' ') {
+    if (c === ' ' || c === '\n') {
       if (currentCommand.length > 0) {
         commandsList.push(currentCommand);
         currentCommand = '';
