@@ -6,7 +6,8 @@ class SideBar extends React.Component {
     super(props);
     this.sidebarRef = React.createRef(null);
     this.state = {
-      sidebarOpen: false,
+      sidebarOpen: true,
+      sideBarSet: 'directions'
     }
   }
 
@@ -16,9 +17,15 @@ class SideBar extends React.Component {
     } else {
       this.setState({sidebarOpen: true});
     }
-    // const sidebar = this.sidebarRef.current;
-    // console.log(sidebar.style.width)
-    // sidebar.style.width = '100px';
+  }
+
+  handleTabClick(e) {
+    const buttonClass = e.target.className;
+    if (buttonClass.startsWith('saved-algos-button')) {
+      this.setState({sideBarSet: 'saved'})
+    } else if (buttonClass.startsWith('directions-button')) {
+      this.setState({sideBarSet: 'directions'})
+    }
   }
 
   render() {
@@ -26,11 +33,37 @@ class SideBar extends React.Component {
     <>
     <div
       className='sidebar'
-      style={{width: this.state.sidebarOpen ? '250px' : '0px'}}
+      style={{
+        width: this.state.sidebarOpen ? '250px' : '0px',
+        minWidth: this.state.sidebarOpen ? '250px' : '0px'
+      }}
       ref={this.sidebarRef}
     >
       <div className='sidebar-inner'>
-        Test
+        <div style={{width: '100%'}}>
+        <button
+          className={`directions-button sidebar-tabs
+            ${this.state.sideBarSet === 'directions' ? ' tab-selected' : ''}`}
+          onMouseDown={(e) => this.handleTabClick(e)}
+        >
+            Direcitons
+        </button>
+        <button
+          className={`saved-algos-button sidebar-tabs
+            ${this.state.sideBarSet === 'saved' ? ' tab-selected' : ''}`}
+          onMouseDown={(e) => this.handleTabClick(e)}
+        >
+          Saved Algorithms
+        </button>
+        </div>
+        <div className={`directions sidebar-content
+          ${this.state.sideBarSet === 'directions' ? '' : ' hidden-content'}`}>
+          <h3>Test</h3>
+        </div>
+        <div className={`saved-algos sidebar-content
+          ${this.state.sideBarSet === 'saved' ? '' : ' hidden-content'}`}>
+          <h3>Test2</h3>
+        </div>
       </div>
     </div>
     <button
