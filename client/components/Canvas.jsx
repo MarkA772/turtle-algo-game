@@ -13,6 +13,7 @@ class Canvas extends React.Component {
       inputText: '',
     }
     this.handleInput = this.handleInput.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -28,6 +29,7 @@ class Canvas extends React.Component {
       <canvas height="600" width="800" ref={this.canvasRef} className="canvas"/>
       <TurtleInput
         onInput={this.handleInput}
+        onKeyDown={this.handleKeyDown}
         onSubmit={this.handleSubmit}
         onSave={this.handleSave}
       />
@@ -44,6 +46,12 @@ class Canvas extends React.Component {
 
   handleInput(e) {
     this.setState({inputText: e.target.value});
+  }
+
+  handleKeyDown(e) {
+    if (e.code === 'Enter' && e.ctrlKey) {
+      this.handleSubmit(e);
+    }
   }
 }
 
