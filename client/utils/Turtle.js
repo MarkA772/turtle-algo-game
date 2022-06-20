@@ -20,14 +20,11 @@
  */
  class Turtle {
   constructor(canvas, turtleCanvas) {
-    this.orientation = 0; // degrees orientation, 0 is upwards
     this.canvas = canvas;
     this.context = canvas.getContext('2d');
     this.turtleCanvas = turtleCanvas;
     this.turtleContext = turtleCanvas.getContext('2d');
-    this.posx = canvas.width / 2;
-    this.posy = canvas.height / 2;
-    this.drawTurtle();
+    this.resetTurtle();
   }
 
   drawTurtle() {
@@ -84,6 +81,13 @@
     this.drawTurtle();
   }
 
+  resetTurtle() {
+    this.orientation = 0; // degrees orientation, 0 is upwards
+    this.posx = this.canvas.width / 2;
+    this.posy = this.canvas.height / 2;
+    this.drawTurtle();
+  }
+
   /**
    * Loop using the dispatcher
    * 
@@ -120,6 +124,7 @@
       
       case 'clr':
         this.clear();
+        this.resetTurtle();
         break;
 
       case 'rt':

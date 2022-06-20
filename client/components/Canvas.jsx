@@ -2,7 +2,7 @@ import React from 'react';
 import TurtleInput from './TurtleInput.jsx';
 
 import Turtle from '../utils/Turtle.js';
-import TurtleParser from '../utils/TurtleParser.js';
+import turtleParser from '../utils/TurtleParser.js';
 
 class Canvas extends React.Component {
   constructor(props) {
@@ -13,6 +13,7 @@ class Canvas extends React.Component {
       inputText: '',
     }
     this.handleInput = this.handleInput.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -38,7 +39,8 @@ class Canvas extends React.Component {
   }
 
   handleSubmit() {
-    console.log('handleSubmit');
+    console.log(turtleParser(this.state.inputText));
+    this.turtleApp.dispatch(...turtleParser(this.state.inputText));
   }
 
   handleInput(e) {

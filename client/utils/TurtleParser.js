@@ -11,11 +11,104 @@
  * right/rt [num]                   - rotate turtle right num degrees
  * left/lt [num]                    - rotate turtle left num degrees
  * clear/clr                        - clear screen
- * loop [num] [commands]            - loop through commands num times
+ * loop/lp [num] {[commands list]}  - loop through commands num times
+ * 
+ * Eg:
+ * Input: lt 90 lp 4 { fd 100 rt 90 }
+ * Eventual Function Call: dispatch('lp', [1, ['lt', 'lp'], [90, [4, ['fd', 'rt'], [100, 90]]]])
+ * Output: ['lp', [1, ['lt', 'lp'], [90, [4, ['fd', 'rt'], [100, 90]]]]]
+ * Unique output: ['lt', 'lp'], [90, [4, ['fd', 'rt'], [100, 90]]]
  */
 
 function turtleParser(str) {
-
+  const commandArray = splitCommands(str);
+  return ['lp', [1, ...parseCommands(commandArray)]];
 }
+
+// console.log(turtleParser('lt 90 lp 4 { fd 100 rt 90 }'));
+
+function parseCommands(commandArray) {
+  const commands = [];
+  const args = [];
+  while (commandArray.length > 0) {
+    const currentCommand = commandArray.shift();
+    switch (currentCommand) {
+      case 'left':
+      case 'lt':
+        commands.push('lt');
+        args.push(commandArray.shift());
+        break;
+      case 'right':
+      case 'rt':
+        commands.push('rt');
+        args.push(commandArray.shift());
+        break;
+      case 'forward':
+      case 'fd':
+        commands.push('fd');
+        args.push(commandArray.shift());
+        break;
+      case 'back':
+      case 'bk':
+        commands.push('bk');
+        args.push(commandArray.shift());
+        break;
+      case 'clear':
+      case 'clr':
+        commands.push('clr');
+        args.push('');
+        break;
+      case 'loop':
+      case 'lp':
+        commands.push('lp');
+        const loopCmds = [commandArray.shift(), ...parseCommands(commandArray.shift())];
+        args.push(loopCmds);
+        break;
+    
+      default:
+        break;
+    }
+  }
+
+  return [commands, args];
+}
+
+// console.log(...turtleParser('lt 90 lp 4 { fd 100 rt 90 }'));
+
+function splitCommands(str) {
+  str = str.trim();
+  const commandsList = [];
+  let currentCommand = '';
+  let i = 0;
+  while (i < str.length) {
+    const c = str[i];
+    if (c === ' ') {
+      if (currentCommand.length > 0) {
+        commandsList.push(currentCommand);
+        currentCommand = '';
+      }
+    } else if (c === '{') {
+      // Recursively call splitCommands on everything in braces
+      let startIndex = i++;
+      let bracketCount = 1;
+      while (i < str.length) {
+        if (str[i] === '{') bracketCount++;
+        if (str[i] === '}') bracketCount--;
+        if (bracketCount === 0) break;
+        i++;
+      }
+      commandsList.push(splitCommands(str.slice(startIndex + 1, i)));
+    } else {
+      currentCommand += c;
+    }
+    i++;
+  }
+  if (currentCommand.length > 0) {
+    commandsList.push(currentCommand);
+  }
+  return commandsList;
+}
+
+// console.log(splitCommands(' lt 90 lp 4 {fd 100 rt 90 } lp 2 {lp 2 {rt 10}}'));
 
 export default turtleParser;
