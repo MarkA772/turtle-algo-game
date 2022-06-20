@@ -72,12 +72,12 @@
   }
 
   turnRt(deg) {
-    this.orientation += deg;
+    this.orientation += parseInt(deg);
     this.drawTurtle();
   }
   
   turnLt(deg) {
-    this.orientation -= deg;
+    this.orientation -= parseInt(deg);
     this.drawTurtle();
   }
 
