@@ -14,18 +14,35 @@ body {
 .app-inner {
   display: flex;
   width: 100%;
+  overflow: hidden;
 }
 
 .sidebar {
   background-color: aliceblue;
+  height: 90%;
   overflow: hidden;
-  width: 0px;
+  transition: width 1s;
+}
+
+.sidebar-inner {
+  height: 100%;
+  overflow: auto;
+}
+
+button {
+  background-color: rgb(162, 255, 255);
+  border-color: rgb(142, 235, 235);
+  border-radius: 10%;
+  border-width: 1px;
+  border-style: solid;
+  color: rgb(79, 79, 79);
 }
 
 .sidebar-button {
   margin-right: -20px;
   width: 20px;
   height: 50px;
+  z-index: 1;
 }
 
 .main-app {
@@ -37,8 +54,6 @@ body {
 
 .canvas-div {
   position: relative;
-  height: 500;
-  width: 800;
   overflow: hidden;
   object-fit: cover;
 }
