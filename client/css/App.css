@@ -6,16 +6,32 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 1vh;
 }
 
-.canvas {
-  background-color: aliceblue;
-  /* width: 800px;   Causes blurry canvas
-  height: 600px; */
+.canvas-div {
+  position: relative;
+  height: 500;
+  width: 800;
+  overflow: hidden;
+  object-fit: cover;
 }
 
 .turtle-canvas {
   position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.canvas {
+  background-color: aliceblue;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  /* width: 800px;   Causes blurry canvas
+  height: 600px; */
 }
 
 .input-div {
@@ -23,7 +39,6 @@ body {
 }
 
 .turtle-input {
-  width: 730px;
   height: 80px;
   resize: none;
 }

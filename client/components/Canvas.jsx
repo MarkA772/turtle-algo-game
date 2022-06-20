@@ -21,13 +21,22 @@ class Canvas extends React.Component {
     document.querySelector('.turtle-input').focus();
     this.canvas = this.canvasRef.current;
     this.turtleCanvas = this.turtleCanvasRef.current;
+    this.resizeCanvas();
+    window.addEventListener('resize', () => this.resizeCanvas());
     this.turtleApp = new Turtle(this.canvas, this.turtleCanvas);
   }
 
+  resizeCanvas() {
+    const canvasDiv = document.querySelector('.canvas-div');
+    canvasDiv.style.width = visualViewport.width - 50;
+    canvasDiv.style.height = visualViewport.height - 200;
+    document.querySelector('.turtle-input').style.width = visualViewport.width - 120;
+  }
+
   render() {
-    return (<div className="canvas-div">
-      <canvas height="600" width="800" ref={this.turtleCanvasRef} className="turtle-canvas"/>
-      <canvas height="600" width="800" ref={this.canvasRef} className="canvas"/>
+    return (<div><div className="canvas-div">
+      <canvas height="1000" width="2000" ref={this.canvasRef} className="canvas"/>
+      <canvas height="1000" width="2000" ref={this.turtleCanvasRef} className="turtle-canvas"/></div>
       <TurtleInput
         onInput={this.handleInput}
         onKeyDown={this.handleKeyDown}
