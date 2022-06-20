@@ -28,13 +28,13 @@ class Canvas extends React.Component {
 
   resizeCanvas() {
     const canvasDiv = document.querySelector('.canvas-div');
-    canvasDiv.style.width = visualViewport.width - 50;
+    canvasDiv.style.width = '90%';
     canvasDiv.style.height = visualViewport.height - 200;
-    document.querySelector('.turtle-input').style.width = visualViewport.width - 120;
+    document.querySelector('.input-div').style.width = '90%';
   }
 
   render() {
-    return (<div><div className="canvas-div">
+    return (<div className='main-app'><div className="canvas-div">
       <canvas height="1000" width="2000" ref={this.canvasRef} className="canvas"/>
       <canvas height="1000" width="2000" ref={this.turtleCanvasRef} className="turtle-canvas"/></div>
       <TurtleInput
