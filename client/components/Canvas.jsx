@@ -18,6 +18,7 @@ class Canvas extends React.Component {
   }
 
   componentDidMount() {
+    document.querySelector('.turtle-input').focus();
     this.canvas = this.canvasRef.current;
     this.turtleCanvas = this.turtleCanvasRef.current;
     this.turtleApp = new Turtle(this.canvas, this.turtleCanvas);

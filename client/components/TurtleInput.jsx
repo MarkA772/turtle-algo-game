@@ -17,7 +17,8 @@ class TurtleInput extends React.Component {
         className='turtle-submit'
         onMouseDown={this.props.onSubmit}
       >
-        Submit
+        Submit< br />
+        (ctrl+enter)
       </button>
       <br />
       <button
