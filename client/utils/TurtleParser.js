@@ -25,8 +25,6 @@ function turtleParser(str) {
   return ['lp', [1, ...parseCommands(commandArray)]];
 }
 
-// console.log(turtleParser('lt 90 lp 4 { fd 100 rt 90 }'));
-
 function parseCommands(commandArray) {
   const commands = [];
   const args = [];
@@ -73,8 +71,6 @@ function parseCommands(commandArray) {
   return [commands, args];
 }
 
-// console.log(...turtleParser('lt 90 lp 4 { fd 100 rt 90 }'));
-
 function splitCommands(str) {
   str = str.trim();
   const commandsList = [];
@@ -108,7 +104,5 @@ function splitCommands(str) {
   }
   return commandsList;
 }
-
-// console.log(splitCommands(' lt 90 lp 4 {fd 100 rt 90 } lp 2 {lp 2 {rt 10}}'));
 
 export default turtleParser;

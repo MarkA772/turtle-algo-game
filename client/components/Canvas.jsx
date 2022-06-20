@@ -39,7 +39,6 @@ class Canvas extends React.Component {
   }
 
   handleSubmit() {
-    // console.log(turtleParser(this.state.inputText));
     this.turtleApp.dispatch(...turtleParser(this.state.inputText));
   }
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import Canvas from './Canvas.jsx';
 import '../css/App.css';
 
 
