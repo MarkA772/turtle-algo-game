@@ -67,6 +67,7 @@ class SideBar extends React.Component {
             algoList={this.props.algoList}
             updateAlgos={this.props.updateAlgos}
             insertAlgo={this.props.insertAlgo}
+            deleteAlgo={this.props.deleteAlgo}
           />
         </div>
       </div>

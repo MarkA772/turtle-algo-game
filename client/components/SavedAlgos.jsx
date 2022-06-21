@@ -14,8 +14,10 @@ class SavedAlgos extends React.Component {
       algoList.push(
         <AlgoItem
           key={algo.id}
+          algoId={algo.id}
           algoItem={algo.algostring}
           insertAlgo={this.props.insertAlgo}
+          deleteAlgo={this.props.deleteAlgo}
         />
       );
     });

@@ -12,4 +12,8 @@ router.post('/', dbController.saveAlgo, (req, res) => {
   return res.status(200).send(res.locals);
 });
 
+router.delete('/', dbController.delAlgo, (req, res) => {
+  return res.status(200).send(res.locals);
+});
+
 module.exports = router;

@@ -26,4 +26,15 @@ dbController.saveAlgo = (req, res, next) => {
     });
 };
 
+dbController.delAlgo = (req, res, next) => {
+  pool.query(`DELETE FROM algos WHERE id=${req.body.id}`)
+  .then((data) => {
+    res.locals = data.rows;
+    return next();
+  })
+  .catch((err) => {
+      return next(console.log(err));
+    });
+};
+
 module.exports = dbController;

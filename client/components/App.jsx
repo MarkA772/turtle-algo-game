@@ -13,6 +13,7 @@ class App extends React.Component {
     };
     this.updateAlgos = this.updateAlgos.bind(this);
     this.insertAlgo = this.insertAlgo.bind(this);
+    this.deleteAlgo = this.deleteAlgo.bind(this);
     this.handleInput = this.handleInput.bind(this);
   }
 
@@ -30,6 +31,21 @@ class App extends React.Component {
     this.setState({inputText: e.target.innerText});
   }
 
+  deleteAlgo(algoId) {
+    const body = {id: algoId};
+    fetch('/api', {
+      method: 'DELETE',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(body)
+    })
+      .then(() => this.updateAlgos())
+      .catch(e => console.log('err: ', e));
+    // const newAlgoList = this.state.algoList.filter(
+    //   item => item.id !== algoId
+    // );
+    // this.setState({algoList: newAlgoList});
+  }
+
   render() {
     return (
     <><h1>Hello from App.jsx!</h1>
@@ -38,6 +54,7 @@ class App extends React.Component {
         algoList={this.state.algoList}
         updateAlgos={this.updateAlgos}
         insertAlgo={this.insertAlgo}
+        deleteAlgo={this.deleteAlgo}
       />
       <Canvas
         updateAlgos={this.updateAlgos}
