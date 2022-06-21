@@ -4,7 +4,11 @@ const dbController = require('../controllers/dbController');
 
 const router = express.Router();
 
-router.get('/', dbController.testRoute, (req, res) => {
+router.get('/', dbController.getSavedAlgos, (req, res) => {
+  return res.status(200).send(res.locals);
+});
+
+router.post('/', dbController.saveAlgo, (req, res) => {
   return res.status(200).send(res.locals);
 });
 

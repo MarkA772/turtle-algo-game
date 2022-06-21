@@ -63,7 +63,10 @@ class SideBar extends React.Component {
         </div>
         <div className={`saved-algos sidebar-content
           ${this.state.sideBarSet === 'saved' ? '' : ' hidden-content'}`}>
-          <SavedAlgos />
+          <SavedAlgos
+            algoList={this.props.algoList}
+            updateAlgos={this.props.updateAlgos}
+          />
         </div>
       </div>
     </div>

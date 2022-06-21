@@ -14,6 +14,7 @@ class Canvas extends React.Component {
     }
     this.handleInput = this.handleInput.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.handleSave = this.handleSave.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -47,7 +48,14 @@ class Canvas extends React.Component {
   }
 
   handleSave() {
-    console.log('handleSave');
+    const body = {data: this.state.inputText};
+    fetch('/api', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(body)
+    })
+      .then(() => this.props.updateAlgos())
+      .catch(e => console.log('err: ', e));
   }
 
   handleSubmit() {
