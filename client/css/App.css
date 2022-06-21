@@ -60,6 +60,10 @@ button {
   display: none;
 }
 
+.algo-item {
+  background-color: rgb(255, 255, 255);
+}
+
 .main-app {
   display: flex;
   flex-direction: column;

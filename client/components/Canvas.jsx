@@ -9,10 +9,6 @@ class Canvas extends React.Component {
     super(props);
     this.canvasRef = React.createRef(null);
     this.turtleCanvasRef = React.createRef(null);
-    this.state = {
-      inputText: '',
-    }
-    this.handleInput = this.handleInput.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -39,7 +35,8 @@ class Canvas extends React.Component {
       <canvas height="1000" width="2000" ref={this.canvasRef} className="canvas"/>
       <canvas height="1000" width="2000" ref={this.turtleCanvasRef} className="turtle-canvas"/></div>
       <TurtleInput
-        onInput={this.handleInput}
+        inputText={this.props.inputText}
+        onInput={this.props.handleInput}
         onKeyDown={this.handleKeyDown}
         onSubmit={this.handleSubmit}
         onSave={this.handleSave}
@@ -48,7 +45,7 @@ class Canvas extends React.Component {
   }
 
   handleSave() {
-    const body = {data: this.state.inputText};
+    const body = {data: this.props.inputText};
     fetch('/api', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -59,11 +56,7 @@ class Canvas extends React.Component {
   }
 
   handleSubmit() {
-    this.turtleApp.dispatch(...turtleParser(this.state.inputText));
-  }
-
-  handleInput(e) {
-    this.setState({inputText: e.target.value});
+    this.turtleApp.dispatch(...turtleParser(this.props.inputText));
   }
 
   handleKeyDown(e) {

@@ -9,6 +9,7 @@ class TurtleInput extends React.Component {
     <div className='input-div'><br />
     <textarea
       className='turtle-input'
+      value={this.props.inputText}
       onInput={this.props.onInput}
       onKeyDown={this.props.onKeyDown}
     />
