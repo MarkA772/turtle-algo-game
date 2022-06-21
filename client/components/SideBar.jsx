@@ -1,4 +1,5 @@
 import React from 'react';
+import SavedAlgos from './SavedAlgos.jsx';
 
 
 class SideBar extends React.Component {
@@ -62,7 +63,7 @@ class SideBar extends React.Component {
         </div>
         <div className={`saved-algos sidebar-content
           ${this.state.sideBarSet === 'saved' ? '' : ' hidden-content'}`}>
-          <h3>Test2</h3>
+          <SavedAlgos />
         </div>
       </div>
     </div>

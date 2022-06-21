@@ -32,5 +32,10 @@ module.exports = {
   },
   plugins: [new HtmlWebpackPlugin({
     template: './client/index.html'
-  })]
+  })],
+  devServer: {
+    proxy: {
+      '/api': 'http://localhost:3000'
+    }
+  }
 };

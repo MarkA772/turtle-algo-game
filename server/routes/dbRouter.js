@@ -5,8 +5,7 @@ const dbController = require('../controllers/dbController');
 const router = express.Router();
 
 router.get('/', dbController.testRoute, (req, res) => {
-  console.log(res.locals);
-  return res.status(200).send('test');
+  return res.status(200).send(res.locals);
 });
 
 module.exports = router;
