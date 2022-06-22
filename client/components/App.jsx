@@ -29,6 +29,7 @@ class App extends React.Component {
 
   insertAlgo(e) {
     this.setState({inputText: e.target.innerText});
+    setTimeout(() => document.querySelector('.turtle-input').focus(), 0);
   }
 
   deleteAlgo(algoId) {
@@ -40,10 +41,6 @@ class App extends React.Component {
     })
       .then(() => this.updateAlgos())
       .catch(e => console.log('err: ', e));
-    // const newAlgoList = this.state.algoList.filter(
-    //   item => item.id !== algoId
-    // );
-    // this.setState({algoList: newAlgoList});
   }
 
   render() {
