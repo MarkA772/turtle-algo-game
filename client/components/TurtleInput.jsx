@@ -1,5 +1,4 @@
 import React from 'react';
-import '../css/App.css';
 
 
 class TurtleInput extends React.Component {

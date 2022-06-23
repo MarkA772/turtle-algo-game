@@ -1,5 +1,14 @@
+$background-color: blanchedalmond;
+$button-color: rgb(162, 255, 255);
+$button-border: rgb(142, 235, 235);
+$button-mouseover-color: lighten($button-color, 10%);
+$button-mouseover-border-color: lighten($button-border, 15%);
+$button-text: rgb(70, 70, 70);
+$tab-selected-color: aquamarine;
+$section-background: aliceblue;
+
 body {
-  background-color: blanchedalmond;
+  background-color: $background-color;
   margin: 0;
 }
 
@@ -18,7 +27,7 @@ body {
 }
 
 .sidebar {
-  background-color: aliceblue;
+  background-color: $section-background;
   height: 90%;
   overflow: hidden;
   transition: min-width 0.5s, width 0.5s;
@@ -32,12 +41,18 @@ body {
 }
 
 button {
-  background-color: rgb(162, 255, 255);
-  border-color: rgb(142, 235, 235);
+  background-color: $button-color;
+  border-color: $button-border;
   border-radius: 10%;
   border-width: 1px;
   border-style: solid;
-  color: rgb(70, 70, 70);
+  color: $button-text;
+  transition: 0.4s;
+}
+
+button:hover {
+  background-color: $button-mouseover-color;
+  border-color: $button-mouseover-border-color;
 }
 
 .sidebar-button {
@@ -55,7 +70,11 @@ button {
 }
 
 .tab-selected {
-  background-color: aquamarine;
+  background-color: $tab-selected-color;
+}
+
+.tab-selected:hover {
+  background-color: $tab-selected-color;
 }
 
 .hidden-content {
@@ -64,7 +83,6 @@ button {
 
 .algo-item {
   display: flex;
-  background-color: rgb(255, 255, 255);
   justify-content: space-between;
   margin: 0 0 4px 0;
 }
@@ -95,7 +113,7 @@ button {
   border-radius: 1%;
 }
 
-.turtle-canvas {
+canvas {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -103,11 +121,7 @@ button {
 }
 
 .canvas {
-  background-color: aliceblue;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  background-color: $section-background;
   /* width: 800px;   Causes blurry canvas
   height: 600px; */
 }

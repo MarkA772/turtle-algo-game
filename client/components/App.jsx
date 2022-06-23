@@ -1,7 +1,7 @@
 import React from 'react';
 import Canvas from './Canvas.jsx';
 import SideBar from './SideBar.jsx';
-import '../css/App.css';
+import '../css/App.scss';
 
 
 class App extends React.Component {

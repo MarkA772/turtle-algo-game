@@ -27,6 +27,8 @@
     "dotenv": "^16.0.1",
     "html-webpack-plugin": "^5.5.0",
     "nodemon": "^2.0.16",
+    "sass": "^1.53.0",
+    "sass-loader": "^13.0.0",
     "style-loader": "^3.3.1",
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.9.2"
