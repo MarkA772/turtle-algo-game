@@ -58,13 +58,13 @@ class Canvas extends React.Component {
   }
 
   handleSubmit(e) {
-    if (e.button === 0)
+    if (e === undefined || e.button === 0)
       this.turtleApp.dispatch(...turtleParser(this.props.inputText));
   }
 
   handleKeyDown(e) {
     if (e.code === 'Enter' && e.ctrlKey) {
-      this.handleSubmit(e);
+      this.handleSubmit();
     }
   }
 }
