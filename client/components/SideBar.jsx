@@ -12,20 +12,24 @@ class SideBar extends React.Component {
     }
   }
 
-  toggleNav() {
-    if (this.state.sidebarOpen) {
-      this.setState({sidebarOpen: false});
-    } else {
-      this.setState({sidebarOpen: true});
+  toggleNav(e) {
+    if (e.button === 0) {
+      if (this.state.sidebarOpen) {
+        this.setState({sidebarOpen: false});
+      } else {
+        this.setState({sidebarOpen: true});
+      }
     }
   }
 
   handleTabClick(e) {
-    const buttonClass = e.target.className;
-    if (buttonClass.startsWith('saved-algos-button')) {
-      this.setState({sideBarSet: 'saved'})
-    } else if (buttonClass.startsWith('directions-button')) {
-      this.setState({sideBarSet: 'directions'})
+    if (e.button === 0) {
+      const buttonClass = e.target.className;
+      if (buttonClass.startsWith('saved-algos-button')) {
+        this.setState({sideBarSet: 'saved'})
+      } else if (buttonClass.startsWith('directions-button')) {
+        this.setState({sideBarSet: 'directions'})
+      }
     }
   }
 
@@ -74,7 +78,7 @@ class SideBar extends React.Component {
     </div>
     <button
        className='sidebar-button'
-       onMouseDown={() => this.toggleNav()}
+       onMouseDown={(e) => this.toggleNav(e)}
     >
       &gt;
     </button>

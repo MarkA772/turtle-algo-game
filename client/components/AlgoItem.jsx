@@ -10,7 +10,7 @@ class AlgoItem extends React.Component {
     return (
     <div className='algo-item'>
       <span className="saved-algo-text" onMouseDown={this.props.insertAlgo}>{this.props.algoItem}</span>
-      <span className="saved-algo-delete" onMouseDown={() => {this.props.deleteAlgo(this.props.algoId)}}>x</span>
+      <span className="saved-algo-delete" onMouseDown={(e) => {this.props.deleteAlgo(this.props.algoId, e)}}>x</span>
     </div>
     );
   }

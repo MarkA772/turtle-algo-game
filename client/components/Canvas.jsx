@@ -32,8 +32,8 @@ class Canvas extends React.Component {
 
   render() {
     return (<div className='main-app'><div className="canvas-div">
-      <canvas height="1000" width="2000" ref={this.canvasRef} className="canvas"/>
-      <canvas height="1000" width="2000" ref={this.turtleCanvasRef} className="turtle-canvas"/></div>
+      <canvas height="1500" width="2500" ref={this.canvasRef} className="canvas"/>
+      <canvas height="1500" width="2500" ref={this.turtleCanvasRef} className="turtle-canvas"/></div>
       <TurtleInput
         inputText={this.props.inputText}
         onInput={this.props.handleInput}
@@ -44,19 +44,22 @@ class Canvas extends React.Component {
     </div>);
   }
 
-  handleSave() {
-    const body = {data: this.props.inputText};
-    fetch('/api', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(body)
-    })
-      .then(() => this.props.updateAlgos())
-      .catch(e => console.log('err: ', e));
+  handleSave(e) {
+    if (e.button === 0) {
+      const body = {data: this.props.inputText};
+      fetch('/api', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(body)
+      })
+        .then(() => this.props.updateAlgos())
+        .catch(e => console.log('err: ', e));
+    }
   }
 
-  handleSubmit() {
-    this.turtleApp.dispatch(...turtleParser(this.props.inputText));
+  handleSubmit(e) {
+    if (e.button === 0)
+      this.turtleApp.dispatch(...turtleParser(this.props.inputText));
   }
 
   handleKeyDown(e) {

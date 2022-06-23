@@ -28,19 +28,23 @@ class App extends React.Component {
   }
 
   insertAlgo(e) {
-    this.setState({inputText: e.target.innerText});
-    setTimeout(() => document.querySelector('.turtle-input').focus(), 0);
+    if (e.button === 0) {
+      this.setState({inputText: e.target.innerText});
+      setTimeout(() => document.querySelector('.turtle-input').focus(), 0);
+    }
   }
 
-  deleteAlgo(algoId) {
-    const body = {id: algoId};
-    fetch('/api', {
-      method: 'DELETE',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(body)
-    })
-      .then(() => this.updateAlgos())
-      .catch(e => console.log('err: ', e));
+  deleteAlgo(algoId, e) {
+    if (e.button === 0) {
+      const body = {id: algoId};
+      fetch('/api', {
+        method: 'DELETE',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(body)
+      })
+        .then(() => this.updateAlgos())
+        .catch(e => console.log('err: ', e));
+    }
   }
 
   render() {
