@@ -72,8 +72,17 @@ class SideBar extends React.Component {
             updateAlgos={this.props.updateAlgos}
             insertAlgo={this.props.insertAlgo}
             deleteAlgo={this.props.deleteAlgo}
-          />
-        </div>
+        /></div>
+      </div>
+      <div className='speed-slider-div'>
+        <label for="speed">Speed:</label>
+        <input
+          id="speed"
+          className='speed-slider'
+          type="range"
+          min="1"
+          max="3"
+        ></input>
       </div>
     </div>
     <button
