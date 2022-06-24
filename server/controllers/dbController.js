@@ -5,7 +5,7 @@ const pool = new Pool();
 const dbController = {};
 
 dbController.getSavedAlgos = (req, res, next) => {
-  pool.query('SELECT * FROM algos')
+  pool.query('SELECT * FROM algos ORDER BY id')
     .then((data) => {
       res.locals = data.rows;
       return next();
