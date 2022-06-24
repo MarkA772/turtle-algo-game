@@ -25,6 +25,7 @@
     this.turtleCanvas = turtleCanvas;
     this.turtleContext = turtleCanvas.getContext('2d');
     this.resetTurtle();
+    this.penDown = true;
   }
 
   drawTurtle() {
@@ -45,27 +46,32 @@
 
   clear() {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.penDown = true;
   }
 
   drawLineF(dist) {
-    const ctx = this.context;
-    ctx.beginPath();
     const [ x, y ] = this.angleToCoord(dist);
-    ctx.moveTo(this.posx, this.posy);
-    ctx.lineTo(x, y);
-    ctx.stroke();
+    if (this.penDown) {
+      const ctx = this.context;
+      ctx.beginPath();
+      ctx.moveTo(this.posx, this.posy);
+      ctx.lineTo(x, y);
+      ctx.stroke();
+    }
     this.posx = x;
     this.posy = y;
     this.drawTurtle();
   }
 
   drawLineB(dist) {
-    const ctx = this.context;
-    ctx.beginPath();
     const [ x, y ] = this.angleToCoord(-dist);
-    ctx.moveTo(this.posx, this.posy);
-    ctx.lineTo(x, y);
-    ctx.stroke();
+    if (this.penDown) {
+      const ctx = this.context;
+      ctx.beginPath();
+      ctx.moveTo(this.posx, this.posy);
+      ctx.lineTo(x, y);
+      ctx.stroke();
+    }
     this.posx = x;
     this.posy = y;
     this.drawTurtle();
@@ -137,6 +143,14 @@
       
       case 'lp':
         this.loop(...args);
+        break;
+
+      case 'pu':
+        this.penDown = false;
+        break;
+      
+      case 'pd':
+        this.penDown = true;
         break;
     
       default:

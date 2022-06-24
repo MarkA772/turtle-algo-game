@@ -62,6 +62,16 @@ function parseCommands(commandArray) {
         const loopCmds = [commandArray.shift(), ...parseCommands(commandArray.shift())];
         args.push(loopCmds);
         break;
+        case 'penup':
+        case 'pu':
+          commands.push('pu');
+          args.push('');
+          break;
+        case 'pendown':
+        case 'pd':
+          commands.push('pd');
+          args.push('');
+          break;
     
       default:
         break;
