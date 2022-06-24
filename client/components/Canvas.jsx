@@ -58,8 +58,10 @@ class Canvas extends React.Component {
   }
 
   handleSubmit(e) {
-    if (e === undefined || e.button === 0)
-      this.turtleApp.dispatch(...turtleParser(this.props.inputText));
+    if (e === undefined || e.button === 0) {
+      if (!this.turtleApp.working)
+        this.turtleApp.dispatch(...turtleParser(this.props.inputText));
+    }
   }
 
   handleKeyDown(e) {

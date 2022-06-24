@@ -26,6 +26,7 @@
     this.turtleContext = turtleCanvas.getContext('2d');
     this.resetTurtle();
     this.penDown = true;
+    this.working = false;
   }
 
   drawTurtle() {
@@ -112,13 +113,15 @@
 
     for (let i = 0; i < count; i++) {
       for (let j = 0; j < cmds.length; j++) {
+        this.working = true;
         if (++actions % 9999 == 0) await raf();
-        this.dispatch(cmds[j], args[j]);
+        await this.dispatch(cmds[j], args[j]);
       }
     }
+    this.working = false;
   }
 
-  dispatch(evt, args) {
+  async dispatch(evt, args) {
     switch (evt) {
       case 'fd':
         this.drawLineF(args);
@@ -142,7 +145,7 @@
         break;
       
       case 'lp':
-        this.loop(...args);
+        await this.loop(...args);
         break;
 
       case 'pu':
