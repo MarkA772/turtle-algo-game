@@ -9,12 +9,15 @@ class App extends React.Component {
     super(props);
     this.state = {
       algoList: [],
-      inputText: ''
+      inputText: '',
+      speed: 4
     };
+    this.canvasRef = React.createRef(null);
     this.updateAlgos = this.updateAlgos.bind(this);
     this.insertAlgo = this.insertAlgo.bind(this);
     this.deleteAlgo = this.deleteAlgo.bind(this);
     this.handleInput = this.handleInput.bind(this);
+    this.handleSpeedChange = this.handleSpeedChange.bind(this);
   }
 
   updateAlgos() {
@@ -47,6 +50,12 @@ class App extends React.Component {
     }
   }
 
+  handleSpeedChange(e) {
+    const val = e.target.value;
+    this.setState({speed: val});
+    this.canvasRef.current.turtleApp.changeSpeed(val);
+  }
+
   render() {
     return (
     <><h1>Hello from App.jsx!</h1>
@@ -56,11 +65,14 @@ class App extends React.Component {
         updateAlgos={this.updateAlgos}
         insertAlgo={this.insertAlgo}
         deleteAlgo={this.deleteAlgo}
+        speed={this.state.speed}
+        onSpeedChange={this.handleSpeedChange}
       />
       <Canvas
         updateAlgos={this.updateAlgos}
         inputText={this.state.inputText}
         handleInput={this.handleInput}
+        ref={this.canvasRef}
       />
       </div>
     </>

@@ -27,6 +27,7 @@
     this.resetTurtle();
     this.penDown = true;
     this.working = false;
+    this.speed = 9999;
   }
 
   drawTurtle() {
@@ -95,6 +96,26 @@
     this.drawTurtle();
   }
 
+  changeSpeed(val) {
+    switch (val) {
+      case '1':
+        this.speed = 1;
+        break;
+      case '2':
+        this.speed = 9;
+        break;
+      case '3':
+        this.speed = 99;
+        break;
+      case '4':
+        this.speed = 9999;
+        break;
+    
+      default:
+        break;
+    }
+  }
+
   /**
    * Loop using the dispatcher
    * 
@@ -114,7 +135,7 @@
     for (let i = 0; i < count; i++) {
       for (let j = 0; j < cmds.length; j++) {
         this.working = true;
-        if (++actions % 9999 == 0) await raf();
+        if (++actions % this.speed == 0) await raf();
         await this.dispatch(cmds[j], args[j]);
       }
     }

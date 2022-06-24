@@ -43,7 +43,9 @@ class SideBar extends React.Component {
           className='speed-slider'
           type="range"
           min="1"
-          max="3"
+          max="4"
+          value={this.props.speed}
+          onInput={this.props.onSpeedChange}
         ></input>
       </div>
     </div>
