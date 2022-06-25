@@ -22,7 +22,8 @@ class SavedAlgos extends React.Component {
       );
     });
     return (
-    <>{algoList}
+    <>
+    {algoList}
     </>
     );
   }

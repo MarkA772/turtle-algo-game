@@ -1,5 +1,6 @@
 import React from 'react';
 import SavedAlgos from './SavedAlgos.jsx';
+import DirectionsPane from './DirectionsPane.jsx';
 
 
 class SideBarContent extends React.Component {
@@ -24,26 +25,26 @@ class SideBarContent extends React.Component {
   render() {
     return (
     <>
+    <div className='sidebar-tabs-div'>
+    <button
+      className={`directions-button sidebar-tabs
+        ${this.state.sideBarSet === 'directions' ? ' tab-selected' : ''}`}
+      onMouseDown={(e) => this.handleTabClick(e)}
+    >
+        Information
+    </button>
+    <button
+      className={`saved-algos-button sidebar-tabs
+        ${this.state.sideBarSet === 'saved' ? ' tab-selected' : ''}`}
+      onMouseDown={(e) => this.handleTabClick(e)}
+    >
+      Saved Algorithms
+    </button>
+    </div>
     <div className='sidebar-inner'>
-      <div style={{width: '100%'}}>
-      <button
-        className={`directions-button sidebar-tabs
-          ${this.state.sideBarSet === 'directions' ? ' tab-selected' : ''}`}
-        onMouseDown={(e) => this.handleTabClick(e)}
-      >
-          Direcitons
-      </button>
-      <button
-        className={`saved-algos-button sidebar-tabs
-          ${this.state.sideBarSet === 'saved' ? ' tab-selected' : ''}`}
-        onMouseDown={(e) => this.handleTabClick(e)}
-      >
-        Saved Algorithms
-      </button>
-      </div>
       <div className={`directions sidebar-content
         ${this.state.sideBarSet === 'directions' ? '' : ' hidden-content'}`}>
-        <h3>Test</h3>
+        <DirectionsPane />
       </div>
       <div className={`saved-algos sidebar-content
         ${this.state.sideBarSet === 'saved' ? '' : ' hidden-content'}`}>
