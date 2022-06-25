@@ -9,7 +9,19 @@ $section-background: aliceblue;
 
 body {
   background-color: $background-color;
+  color: rgb(40, 44, 45);
+  font-family: 'Arial';
   margin: 0;
+}
+
+.turtle-icon {
+  font-size: 70px;
+  color: #0BACAF;
+}
+
+h1 {
+  margin-top: -20px;
+  color: #0c4050;
 }
 
 #app {

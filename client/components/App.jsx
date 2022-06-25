@@ -58,7 +58,11 @@ class App extends React.Component {
 
   render() {
     return (
-    <><h1>Hello from App.jsx!</h1>
+    <><h1>
+        <span className='turtle-icon'>𓆉 </span>
+        Javascript Turtle App
+        <span className='turtle-icon'> 𓆉</span>
+      </h1>
       <div className='app-inner'>
       <SideBar
         algoList={this.state.algoList}
