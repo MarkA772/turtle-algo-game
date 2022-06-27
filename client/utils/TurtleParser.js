@@ -2,9 +2,7 @@
  * This function will recursively parse the input string into an array of
  *   turtle commands and arguments.
  * 
- * Here is where we decide what the end user's syntax will be.
- * 
- * I will differentiate it from the LOGO syntax:
+ * User command syntax:
  * 
  * forward/fd [num]                 - move turtle forward/draw line forward
  * back/bk [num]                    - move turtle back/draw line back
@@ -12,16 +10,20 @@
  * left/lt [num]                    - rotate turtle left num degrees
  * clear/clr                        - clear screen
  * loop/lp [num] {[commands list]}  - loop through commands num times
+ * penup/pu                         - turtle will move without drawing
+ * pendown/pd                       - default behavior, turtle will draw when moving
  * 
  * Eg:
- * Input: lt 90 lp 4 { fd 100 rt 90 }
- * Eventual Function Call: dispatch('lp', [1, ['lt', 'lp'], [90, [4, ['fd', 'rt'], [100, 90]]]])
+ * Input from user: lt 90 lp 4 { fd 100 rt 90 }
+ * Eventual function call expected: dispatch('lp', [1, ['lt', 'lp'], [90, [4, ['fd', 'rt'], [100, 90]]]])
  * Output: ['lp', [1, ['lt', 'lp'], [90, [4, ['fd', 'rt'], [100, 90]]]]]
  * Unique output: ['lt', 'lp'], [90, [4, ['fd', 'rt'], [100, 90]]]
  */
 
 function turtleParser(str) {
   const commandArray = splitCommands(str);
+  // Loop method already has the functionality we need, so every command will be
+  //   parsed as though it was in loop to be executed once.
   return ['lp', [1, ...parseCommands(commandArray)]];
 }
 
@@ -62,16 +64,16 @@ function parseCommands(commandArray) {
         const loopCmds = [commandArray.shift(), ...parseCommands(commandArray.shift())];
         args.push(loopCmds);
         break;
-        case 'penup':
-        case 'pu':
-          commands.push('pu');
-          args.push('');
-          break;
-        case 'pendown':
-        case 'pd':
-          commands.push('pd');
-          args.push('');
-          break;
+      case 'penup':
+      case 'pu':
+        commands.push('pu');
+        args.push('');
+        break;
+      case 'pendown':
+      case 'pd':
+        commands.push('pd');
+        args.push('');
+        break;
     
       default:
         break;
