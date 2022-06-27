@@ -5,18 +5,6 @@
  * Canvas component will send events to the Turtle instance from react.
  * Canvas component does not need to know what the turtle is doing, as it
  *   will be drawing directly to the canvas and won't need react to be updated.
- * 
- * Turtle should draw slowly, so user can see the turtle as it draws the lines
- *   and patterns.
- * 
- * To start with, we need functions for turning left/right at an angle, moving
- *   forward x pixels, and back x pixels, and drawing a line.
- * 
- * We also need capability to call those functions in loops.
- * We also need to keep in mind that when we parse these commands it will have
- *   the loop count and the function names inside them with their own args.
- * So this can be complicated if not set up properly. We need a flexible way
- *   to call this funcionality in many different ways and different orders.
  */
  class Turtle {
   constructor(canvas, turtleCanvas) {
@@ -34,7 +22,7 @@
     const ctx = this.turtleContext;
     ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     ctx.strokeStyle = 'rgba(0, 0, 0, 0.5)';
-    const h = 12;
+    const h = 12; // Size of the turtle indicator
     let [ x, y ] = this.angleToCoord(h);
     ctx.beginPath();
     ctx.moveTo(x, y);
@@ -124,7 +112,16 @@
    * @param {array} args Array of arguments for commands of same index
    */
   async loop(count, cmds, args) {
-    // Thanks to https://stackoverflow.com/questions/60566546/is-it-safe-to-promisify-requestanimationframe
+    /* Thanks to https://stackoverflow.com/questions/60566546/is-it-safe-to-promisify-requestanimationframe
+    Normally you'd call requestAnimationFrame as a form of main loop, but
+      doing that here causes extremely slow algo drawing. The solution was to
+      requestAnimationFrame after a number of operations have already been
+      queued up to be drawn to the canvas, essentially giving the user a
+      snapshot of progress every x operations, depending on the speed set.
+    This SO solution promise-ifies requestAnimationFrame, and has it call
+      the promise's resolve function as its callback, which allows us to
+      use await, which is necessary to keep the order of the operations.
+    */
     function raf() {
       return new Promise(resolve => {
         requestAnimationFrame(resolve);
@@ -183,7 +180,7 @@
   }
 
   angleToCoord(distance, angle=this.orientation, originX=this.posx, originY=this.posy) {
-    angle = angle - 90;
+    angle = angle - 90; // adjust for angle '0' to point upwards
     const x = originX + distance * Math.cos(Math.PI * angle / 180.0);
     const y = originY + distance * Math.sin(Math.PI * angle / 180.0);
     return [x, y];

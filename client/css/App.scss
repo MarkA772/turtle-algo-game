@@ -156,12 +156,14 @@ code {
   width: 100%;
 }
 
+// Responsive div that clips the oversized canvases inside to avoid resizing the canvas
 .canvas-div {
   position: relative;
   overflow: hidden;
   border-radius: 1%;
 }
 
+// Allows the center of the canvas to always be centered within the clipping container
 canvas {
   position: absolute;
   left: 50%;
