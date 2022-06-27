@@ -27,7 +27,7 @@
     this.resetTurtle();
     this.penDown = true;
     this.working = false;
-    this.speed = 9999;
+    this.speed = 999;
   }
 
   drawTurtle() {
@@ -108,7 +108,7 @@
         this.speed = 99;
         break;
       case '4':
-        this.speed = 9999;
+        this.speed = 999;
         break;
     
       default:
